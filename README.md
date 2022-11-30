@@ -41,7 +41,7 @@ scp -r infra/*  username@IP:/home/username/   # username - имя пользов
                                                                 # IP - публичный IP сервера
 ```
 
-- Для работы с GitHub Actions необходимо в репозитории в разделе Secrets > Actions создать переменные окружения:
+- touch .env и заполнить что то типа этим:
 ```
 DEBUG=False
 SECRET_KEY=<Your_some_long_string>
@@ -71,12 +71,7 @@ sudo docker compose exec backend python manage.py migrate
 sudo docker compose exec backend python manage.py createsuperuser
 ```
 
-- Собрать статику:
-```
-sudo docker compose exec backend python manage.py collectstatic --noinput
-```
-
-- Наполнить базу данных содержимым из файла ingredients.json:
+- По желанию можно наполнить БД готовыми данными:
 ```
 sudo docker compose exec backend python manage.py loaddata recipes/data/ingredients.json
 ```
@@ -101,7 +96,7 @@ sudo docker compose stop         # без удаления
 https://github.com/AlieD3d/foodgram-project-react.git
 ```
 
-- В директории infra файл example.env переименовать в .env и заполнить своими данными:
+- touch .env:
 ```
 DEBUG=False
 SECRET_KEY=<Your_some_long_string>
@@ -126,4 +121,4 @@ DB_PORT=5432
 
 ### Автор backend'а:
 
-by AlieD3d (c) 2022
+by [AlieD3d](https://github.com/AlieD3d/) (c) 2022
