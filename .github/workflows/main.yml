@@ -96,8 +96,8 @@ jobs:
           echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
           echo DB_HOST=${{ secrets.DB_HOST }} >> .env
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-          sudo docker pull ruzhova/backend:latest
-          sudo docker pull ruzhova/frontend:v1
+          sudo docker pull kerriganxd/backend:latest
+          sudo docker pull kerriganxd/frontend:v1
           sudo docker-compose stop
           sudo docker rm foodgram_frontend_1
           sudo docker rm foodgram_backend_1
