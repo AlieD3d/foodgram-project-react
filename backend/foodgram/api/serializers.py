@@ -1,10 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db.models import F
-
 from drf_extra_fields.fields import Base64ImageField
-
 from recipes.models import Ingredient, Recipe, Tag
-
 from rest_framework.serializers import (ModelSerializer, SerializerMethodField,
                                         ValidationError)
 

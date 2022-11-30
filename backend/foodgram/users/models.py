@@ -1,9 +1,9 @@
-from django.db.models import CharField, ManyToManyField, CheckConstraint, EmailField, Q
-from django.contrib.auth.models import AbstractUser
-from django.db.models.functions import Length
-
-from users.validators import MinLenUsernameValidator, RegexpStringValidator
 from api import conf
+from django.contrib.auth.models import AbstractUser
+from django.db.models import (CharField, CheckConstraint, EmailField,
+                              ManyToManyField, Q)
+from django.db.models.functions import Length
+from users.validators import MinLenUsernameValidator, RegexpStringValidator
 
 CharField.register_lookup(Length)
 

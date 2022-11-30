@@ -22,7 +22,8 @@ class RegexpStringValidator:
         self.second_regexp = compile(self.second_regexp)
 
     def __call__(self, value):
-        if self.first_regexp.search(value) and self.second_regexp.search(value):
+        if (self.first_regexp.search(value)
+                and self.second_regexp.search(value)):
             raise ValidationError(self.message)
 
 
