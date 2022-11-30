@@ -33,6 +33,11 @@ sudo apt-get install docker-compose-plugin              # последняя в�
 ```
 sudo chmod +x /usr/local/bin/docker-compose
 ```
+- Создать директорию и перейти в нее:
+```
+mkdir foodgram && cd foodgram
+
+```
 
 - Скопировать на сервер файлы docker-compose.yml, nginx.conf из папки infra:
 
