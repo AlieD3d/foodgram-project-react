@@ -5,12 +5,17 @@ from rest_framework.serializers import ValidationError
 
 
 def recipe_amount_ingredients_set(recipe, ingredients):
-    for ingredient in ingredients:
-        AmountIngredient.objects.get_or_create(
+    obj = [
+        AmountIngredient(
             recipe=recipe,
             ingredients=ingredient['ingredient'],
             amount=ingredient['amount']
+
         )
+        for ingredient in ingredients
+    ]
+    get_obj = AmountIngredient.objects.bulk_create(obj)
+    return get_obj
 
 
 def check_value_validate(value, klass=None):
@@ -20,7 +25,7 @@ def check_value_validate(value, klass=None):
         )
     if klass:
         obj = klass.objects.filter(id=value)
-        if not obj:
+        if not obj.exists():
             raise ValidationError(
                 f'{value} не существует'
             )
