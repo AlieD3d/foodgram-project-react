@@ -1,8 +1,7 @@
 from datetime import datetime as dt
 from urllib.parse import unquote
-
 from django.contrib.auth import get_user_model
-from django.db.models import F, Sum
+from django.db.models import Sum
 from django.http.response import HttpResponse
 from djoser.views import UserViewSet as DjoserUserViewSet
 from recipes.models import AmountIngredient, Ingredient, Recipe, Tag
@@ -122,21 +121,23 @@ class RecipeViewSet(ModelViewSet, AddDelViewMixin):
         user = self.request.user
         if not user.carts.exists():
             return Response(status=HTTP_400_BAD_REQUEST)
-        ingredients = AmountIngredient.objects.filter(
+        shop_ingredients = AmountIngredient.objects.filter(
             recipe__in=(user.carts.values('id'))
-        ).values(
-            ingredient=F('ingredients__name'),
-            measure=F('ingredients__measurement_unit')
-        ).annotate(amount=Sum('amount'))
+        )
+        ingredients = shop_ingredients.values_list(
+            'ingredients__name',
+            'ingredients__measurement_unit'
+        ).order_by('ingredients__name')
+        total = ingredients.annotate(amount=Sum('amount'))
 
         filename = f'{user.username}_shopping_list.txt'
         shopping_list = (
             f'Список покупок для:\n\n{user.first_name}\n\n'
             f'{dt.now().strftime(conf.DATE_TIME_FORMAT)}\n\n'
         )
-        for ing in ingredients:
+        for ing in total:
             shopping_list += (
-                f'{ing["ingredient"]}: {ing["amount"]} {ing["measure"]}\n'
+                f'{ing[0]}: {ing[2]} {ing[1]}\n'
             )
 
         shopping_list += '\n\nПосчитано в Foodgram'
