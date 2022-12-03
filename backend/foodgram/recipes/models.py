@@ -7,6 +7,7 @@ from django.db.models import (CASCADE, CharField, CheckConstraint,
                               PositiveSmallIntegerField, Q, TextField,
                               UniqueConstraint)
 from django.db.models.functions import Length
+from colorfield.fields import ColorField
 
 CharField.register_lookup(Length)
 
@@ -19,12 +20,9 @@ class Tag(Model):
         max_length=MAX_LEN_RECIPES_CHARFIELD,
         unique=True,
     )
-    color = CharField(
+    color = ColorField(
         verbose_name='Цветовой HEX-код',
-        max_length=6,
-        blank=True,
-        null=True,
-        default='FF',
+        default='#ff0000'
     )
     slug = CharField(
         verbose_name='URL',

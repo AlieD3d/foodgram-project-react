@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 from django.db.models import Sum
 from django.http.response import HttpResponse
 from djoser.views import UserViewSet as DjoserUserViewSet
+from rest_framework.permissions import AllowAny
+
 from recipes.models import AmountIngredient, Ingredient, Recipe, Tag
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -47,7 +49,7 @@ class UserViewSet(DjoserUserViewSet, AddDelViewMixin):
 class TagViewSet(ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-    permission_classes = (AdminOrReadOnly,)
+    permission_classes = (AllowAny,)
 
 
 class IngredientViewSet(ReadOnlyModelViewSet):
